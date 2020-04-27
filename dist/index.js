@@ -847,7 +847,7 @@ async function main() {
         myOutput += data.toString();
       },
     };
-    await exec.exec(`go test -count=1 -cover ./...`, [], options);
+    await exec.exec(`go test`, [], options);
     console.log(`out: ${myOutput}`);
 
     // const beforeOpts = {};
