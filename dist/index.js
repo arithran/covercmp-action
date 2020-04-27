@@ -847,7 +847,7 @@ async function main() {
         myOutput += data.toString();
       },
     };
-    await exec.exec(`go test`, [], options);
+    await exec.exec(`go test`, null, options);
     console.log(`out: ${myOutput}`);
 
     // const beforeOpts = {};
