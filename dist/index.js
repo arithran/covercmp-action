@@ -863,10 +863,7 @@ async function main() {
     await exec.exec(`git checkout ${after}`);
 
 
-    await exec.exec(`ls -la`);
     await exec.exec(`covercmp go before.txt after.txt`);
-    await exec.exec(`ls -la`);
-
   } 
   catch (error) {
     core.setFailed(error.message);
