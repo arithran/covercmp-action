@@ -47,8 +47,9 @@ async function main() {
     afterOpts.outStream = fs.createWriteStream('after.txt');
     await exec.exec(`go test -count=1 -cover ./...`, null, afterOpts);
 
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
+    // const payload = JSON.stringify(github.context.payload, undefined, 2)
+    // console.log(`The event payload: ${payload}`);
+    console.log(`The event default_branch: ${github.context.payload.repository.default_branch}`);
 
     // const beforeOpts = {};
     // beforeOpts.outStream = fs.createWriteStream('before.txt');
