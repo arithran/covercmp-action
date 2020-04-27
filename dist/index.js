@@ -835,10 +835,10 @@ async function main() {
     core.addPath(upPath)
 
 
-    const payload = JSON.stringify(github.context, undefined, 2)
-    console.log(`The github context: ${payload}`);
-    const job = JSON.stringify(job.context, undefined, 2)
-    console.log(`The job context: ${job}`);
+    // const payload = JSON.stringify(github.context, undefined, 2)
+    // console.log(`The github context: ${payload}`);
+    // const job = JSON.stringify(job.context, undefined, 2)
+    // console.log(`The job context: ${job}`);
     // const gh = JSON.stringify(github.base_ref, undefined, 2)
     // console.log(`The event base_ref: ${gh}`);
 
@@ -849,9 +849,9 @@ async function main() {
 
     // checkout
 
-    // const beforeOpts = {};
-    // beforeOpts.outStream = fs.createWriteStream('before.txt');
-    // await exec.exec(`go test -count=1 -cover ./...`,null, beforeOpts);
+    const beforeOpts = {};
+    beforeOpts.outStream = fs.createWriteStream('before.txt');
+    await exec.exec(`go test -count=1 -cover ./...`, null, beforeOpts);
 
     await exec.exec(`covercmp go before.txt after.txt`);
 
