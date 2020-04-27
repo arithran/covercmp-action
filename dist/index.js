@@ -836,17 +836,17 @@ async function main() {
 
 
 
+    await exec.exec(`go version`);
     // run 
     const afterOpts = {};
     afterOpts.outStream = fs.createWriteStream('after.txt');
     await exec.exec(`go test -count=1 -cover ./...`, null, afterOpts);
 
-    // checkout
+    // const beforeOpts = {};
+    // beforeOpts.outStream = fs.createWriteStream('before.txt');
+    // await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
 
-    const beforeOpts = {};
-    beforeOpts.outStream = fs.createWriteStream('before.txt');
-    await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
-
+    await exec.exec(`cat after.txt`);
     await exec.exec(`ls -la`);
     await exec.exec(`covercmp go before.txt after.txt`);
     await exec.exec(`ls -la`);
