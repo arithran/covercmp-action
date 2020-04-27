@@ -41,7 +41,7 @@ async function main() {
 
 
     const payload = JSON.stringify(github.context, undefined, 2)
-    console.log(`The event payload: ${payload}`);
+    console.log(`The event context: ${payload}`);
     // const gh = JSON.stringify(github.base_ref, undefined, 2)
     // console.log(`The event base_ref: ${gh}`);
 
@@ -54,7 +54,7 @@ async function main() {
 
     const beforeOpts = {};
     beforeOpts.outStream = fs.createWriteStream('before.txt');
-    await exec.exec(`go test -count=1 -cover ./...`, null, beforeOpts);
+    await exec.exec(`go test -count=1 -cover ./...`, `BUG`, beforeOpts);
 
     await exec.exec(`covercmp go before.txt after.txt`);
 
