@@ -41,7 +41,9 @@ async function main() {
 
 
     const payload = JSON.stringify(github.context, undefined, 2)
-    console.log(`The event context: ${payload}`);
+    console.log(`The github context: ${payload}`);
+    const job = JSON.stringify(job.context, undefined, 2)
+    console.log(`The job context: ${job}`);
     // const gh = JSON.stringify(github.base_ref, undefined, 2)
     // console.log(`The event base_ref: ${gh}`);
 
