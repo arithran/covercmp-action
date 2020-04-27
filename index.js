@@ -46,27 +46,28 @@ async function main() {
     // console.log(`The event base_ref: ${gh}`);
 
     await exec.exec(`go version`);
-    // run 
-    // const afterOpts = {};
-    // afterOpts.outStream = fs.createWriteStream('after.txt');
-    let myOutput = '';
-    let myError = '';
-    const options = {};
-    options.listeners = {
-      stdout: (data) => {
-        myOutput += data.toString();
-      },
-      stderr: (data) => {
-        myError += data.toString();
-      }
-    };
-    await exec.exec(`go`, [`test -count=1 -cover ./...`], options);
-    console.log(`out: ${myOutput}, err ${myError}`);
+    // // run 
+    // // const afterOpts = {};
+    // // afterOpts.outStream = fs.createWriteStream('after.txt');
+    // let myOutput = '';
+    // let myError = '';
+    // const options = {};
+    // options.listeners = {
+    //   stdout: (data) => {
+    //     myOutput += data.toString();
+    //   },
+    //   stderr: (data) => {
+    //     myError += data.toString();
+    //   }
+    // };
+    // await exec.exec(`go`, [`test -count=1 -cover ./...`], options);
+    // console.log(`out: ${myOutput}, err ${myError}`);
 
     // const beforeOpts = {};
     // beforeOpts.outStream = fs.createWriteStream('before.txt');
     // await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
 
+    await exec.exec(`ls -la`);
     await exec.exec(`covercmp go before.txt after.txt`);
     await exec.exec(`ls -la`);
 
