@@ -1,0 +1,9 @@
+name: 'Covercmp'
+description: 'The covercmp-action displays code coverage changes between unit test runs'
+inputs:
+  file:
+    description: 'Path to coverage file'
+    required: true
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
