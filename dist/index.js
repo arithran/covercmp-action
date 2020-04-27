@@ -838,17 +838,17 @@ async function main() {
 
     await exec.exec(`go version`);
     // run 
-    // const afterOpts = {};
-    // afterOpts.outStream = fs.createWriteStream('after.txt');
-    let myOutput = '';
-    const options = {};
-    options.listeners = {
-      stdout: (data) => {
-        myOutput += data.toString();
-      },
-    };
-    await exec.exec(`go test`, null, options);
-    console.log(`out: ${myOutput}`);
+    const afterOpts = {};
+    afterOpts.outStream = fs.createWriteStream('after.txt');
+    // let myOutput = '';
+    // const options = {};
+    // options.listeners = {
+    //   stdout: (data) => {
+    //     myOutput += data.toString();
+    //   },
+    // };
+    await exec.exec(`go test`, null, afterOpts);
+    // console.log(`out: ${myOutput}`);
 
     // const beforeOpts = {};
     // beforeOpts.outStream = fs.createWriteStream('before.txt');
