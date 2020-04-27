@@ -58,6 +58,7 @@ async function main() {
     afterOpts.outStream = fs.createWriteStream('after.txt');
     await exec.exec(`go test -count=1 -cover ./...`, null, afterOpts);
 
+    await exec.exec(`git fetch`);
     await exec.exec(`git checkout ${before}`);
 
     const beforeOpts = {};
