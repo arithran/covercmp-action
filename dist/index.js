@@ -994,7 +994,9 @@ async function main() {
     // run 
     const file = core.getInput('file');
     await exec.exec(`cat ${file}`);
-    await exec.exec(`covercmp ${file}`);
+    await exec.exec(`cat ${file}`);
+    await exec.exec(`which covercmp`);
+    await exec.exec(`covercmp go ${file}`);
   } 
   catch (error) {
     core.setFailed(error.message);
