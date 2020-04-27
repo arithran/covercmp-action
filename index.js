@@ -1,3 +1,4 @@
+const github = require('@actions/github');
 const core = require('@actions/core');
 const exec = require('@actions/exec');
 const tc = require('@actions/tool-cache');
@@ -39,9 +40,14 @@ async function main() {
 
 
     // run 
-    const file = core.getInput('file');
-    await exec.exec(`ls -la`);
-    await exec.exec(`covercmp go ${file}`);
+    await exec.exec(`go test -count=1 -cover > after.txt`);
+    await exec.exec(`go test -count=1 -cover > before.txt`);
+    await exec.exec(`covercmp go before.txt after.txt`);
+
+    const payload = JSON.stringify(github.context.payload, undefined, 2)
+    console.log(`The event payload: ${payload}`);
+    console.log(`The event github: ${github}`);
+    console.log(`The event base_ref: ${github.base_ref}`);
   } 
   catch (error) {
     core.setFailed(error.message);
