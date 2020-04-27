@@ -59,7 +59,7 @@ async function main() {
         myError += data.toString();
       }
     };
-    await exec.exec(`go`, [`test -count=1 -cover`], options);
+    await exec.exec(`go`, [`test -count=1 -cover ./...`], options);
     console.log(`out: ${myOutput}, err ${myError}`);
 
     // const beforeOpts = {};
