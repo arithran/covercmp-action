@@ -54,9 +54,9 @@ async function main() {
 
     // checkout
 
-    const beforeOpts = {};
-    beforeOpts.outStream = fs.createWriteStream('before.txt');
-    await exec.exec(`go test -count=1 -cover ./...`, `BUG`, beforeOpts);
+    // const beforeOpts = {};
+    // beforeOpts.outStream = fs.createWriteStream('before.txt');
+    // await exec.exec(`go test -count=1 -cover ./...`,null, beforeOpts);
 
     await exec.exec(`covercmp go before.txt after.txt`);
 
