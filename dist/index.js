@@ -800,6 +800,8 @@ const tc = __webpack_require__(533);
 const io = __webpack_require__(1);
 const {chmod} = __webpack_require__(672);
 const path = __webpack_require__(622);
+const fs = __webpack_require__(747);
+
 
 
 async function main() {
@@ -833,16 +835,23 @@ async function main() {
     core.addPath(upPath)
 
 
-
-    // run 
-    await exec.exec(`go test -count=1 -cover > after.txt`);
-    await exec.exec(`go test -count=1 -cover > before.txt`);
-    await exec.exec(`covercmp go before.txt after.txt`);
-
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
     console.log(`The event github: ${github}`);
     console.log(`The event base_ref: ${github.base_ref}`);
+
+    // run 
+    const afterOpts = {};
+    afterOpts.outStream = fs.createWriteStream('after.txt');
+    await exec.exec(`go` [`test -count=1 -cover`], afterOpts);
+
+    const beforeOpts = {};
+    beforeOpts.outStream = fs.createWriteStream('before.txt');
+    await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
+
+    await exec.exec(`covercmp go before.txt after.txt`);
+    await exec.exec(`ls -la`);
+
   } 
   catch (error) {
     core.setFailed(error.message);
