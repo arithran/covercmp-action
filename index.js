@@ -42,8 +42,8 @@ async function main() {
 
     const payload = JSON.stringify(github.context.payload, undefined, 2)
     console.log(`The event payload: ${payload}`);
-    const gh = JSON.stringify(github.base_ref, undefined, 2)
-    console.log(`The event base_ref: ${gh}`);
+    // const gh = JSON.stringify(github.base_ref, undefined, 2)
+    // console.log(`The event base_ref: ${gh}`);
 
     // run 
     const afterOpts = {};
