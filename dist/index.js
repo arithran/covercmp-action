@@ -835,11 +835,12 @@ async function main() {
     core.addPath(upPath)
 
 
-    const payload = JSON.stringify(github.context.payload, undefined, 2)
-    console.log(`The event payload: ${payload}`);
+    // const payload = JSON.stringify(github.context.payload, undefined, 2)
+    // console.log(`The event payload: ${payload}`);
     // const gh = JSON.stringify(github.base_ref, undefined, 2)
     // console.log(`The event base_ref: ${gh}`);
 
+    await exec.exec(`go version`);
     // run 
     // const afterOpts = {};
     // afterOpts.outStream = fs.createWriteStream('after.txt');
