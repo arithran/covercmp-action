@@ -830,7 +830,7 @@ async function main() {
     const newpath = path.join(upPath, toName)
     await io.mv(cmpPath, newpath)
     if (process.platform !== "win32") {
-        await chmod(newpath, 0o755)
+      await chmod(newpath, 0o755)
     }
     core.addPath(upPath)
 
@@ -841,13 +841,25 @@ async function main() {
     // console.log(`The event base_ref: ${gh}`);
 
     // run 
-    const afterOpts = {};
-    afterOpts.outStream = fs.createWriteStream('after.txt');
-    await exec.exec(`go` [`test -count=1 -cover`], afterOpts);
+    // const afterOpts = {};
+    // afterOpts.outStream = fs.createWriteStream('after.txt');
+    let myOutput = '';
+    let myError = '';
+    const options = {};
+    options.listeners = {
+      stdout: (data) => {
+        myOutput += data.toString();
+      },
+      stderr: (data) => {
+        myError += data.toString();
+      }
+    };
+    console.log(`out: ${myOutput}, err ${myError}`);
+    await exec.exec(`go` [`test -count=1 -cover`], options);
 
-    const beforeOpts = {};
-    beforeOpts.outStream = fs.createWriteStream('before.txt');
-    await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
+    // const beforeOpts = {};
+    // beforeOpts.outStream = fs.createWriteStream('before.txt');
+    // await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
 
     await exec.exec(`covercmp go before.txt after.txt`);
     await exec.exec(`ls -la`);
