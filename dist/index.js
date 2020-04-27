@@ -836,21 +836,32 @@ async function main() {
 
 
 
-    await exec.exec(`go version`);
     // run 
+    let after
+    let before
+    if (github.context.payload.ref != github.context.payload.repository.default_branch ) {
+      // this is a feature branch, so compare against default branch
+      after = github.context.payload.ref
+      before = github.context.payload.repository.default_branch
+    } else {
+      // this is a commit on the default branch, so compare against previous commit
+      after = github.context.payload.after
+      before = github.context.payload.before
+    }
+
     const afterOpts = {};
     afterOpts.outStream = fs.createWriteStream('after.txt');
     await exec.exec(`go test -count=1 -cover ./...`, null, afterOpts);
 
-    // const payload = JSON.stringify(github.context.payload, undefined, 2)
-    // console.log(`The event payload: ${payload}`);
-    console.log(`The event default_branch: ${github.context.payload.repository.default_branch}`);
+    await exec.exec(`git checkout ${before}`);
 
-    // const beforeOpts = {};
-    // beforeOpts.outStream = fs.createWriteStream('before.txt');
-    // await exec.exec(`go` [`test -count=1 -cover`], beforeOpts);
+    const beforeOpts = {};
+    beforeOpts.outStream = fs.createWriteStream('before.txt');
+    await exec.exec(`go test -count=1 -cover ./...`, null, beforeOpts);
 
-    await exec.exec(`cat after.txt`);
+    await exec.exec(`git checkout ${after}`);
+
+
     await exec.exec(`ls -la`);
     await exec.exec(`covercmp go before.txt after.txt`);
     await exec.exec(`ls -la`);
