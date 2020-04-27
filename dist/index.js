@@ -854,8 +854,8 @@ async function main() {
         myError += data.toString();
       }
     };
+    await exec.exec(`go`, [`test -count=1 -cover`], options);
     console.log(`out: ${myOutput}, err ${myError}`);
-    await exec.exec(`go` [`test -count=1 -cover`], options);
 
     // const beforeOpts = {};
     // beforeOpts.outStream = fs.createWriteStream('before.txt');
